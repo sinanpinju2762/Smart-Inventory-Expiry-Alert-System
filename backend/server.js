@@ -5,9 +5,6 @@ const connectDB = require('./config/db');
 
 dotenv.config();
 
-// Connect to Database
-connectDB();
-
 const app = express();
 
 // Middleware
@@ -16,6 +13,17 @@ app.use(cors({
   credentials: true
 }));
 app.use(express.json());
+
+// Ensure DB is connected before every request (critical for serverless)
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    console.error('DB connection failed:', err.message);
+    res.status(500).json({ message: 'Database connection failed' });
+  }
+});
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
@@ -26,10 +34,10 @@ app.use('/api/barcode', require('./routes/barcodeRoutes'));
 
 // Health check
 app.get('/', (req, res) => {
-  res.json({ message: 'Smart Inventory Expiry Alert System API is running' });
+  res.json({ message: 'Smart Inventory API is running' });
 });
 
-// Cron Job — only runs in local dev (node-cron doesn't work in serverless)
+// Cron Job — only runs in local dev
 if (process.env.NODE_ENV !== 'production') {
   const cron = require('node-cron');
   const { checkExpiringProducts } = require('./services/expiryChecker');
@@ -41,9 +49,9 @@ if (process.env.NODE_ENV !== 'production') {
 
 // Local dev: start server
 if (require.main === module) {
-  const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  connectDB().then(() => {
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   });
 }
 

@@ -8,23 +8,27 @@ if (!cached) {
 
 const connectDB = async () => {
   // Return existing connection if available
-  if (cached.conn) return cached.conn;
+  if (cached.conn && mongoose.connection.readyState === 1) {
+    return cached.conn;
+  }
 
   // Reuse pending connection promise
   if (!cached.promise) {
     cached.promise = mongoose.connect(process.env.MONGODB_URI, {
-      bufferCommands: false,
+      serverSelectionTimeoutMS: 10000,
+      socketTimeoutMS: 45000,
+    }).then(m => m).catch(err => {
+      cached.promise = null;
+      throw err;
     });
   }
 
   try {
     cached.conn = await cached.promise;
-    console.log(`MongoDB Connected: ${cached.conn.connection.host}`);
     return cached.conn;
   } catch (error) {
-    cached.promise = null;
     console.error(`Database connection error: ${error.message}`);
-    process.exit(1);
+    throw error;
   }
 };
 
