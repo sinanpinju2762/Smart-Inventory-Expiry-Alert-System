@@ -794,7 +794,47 @@ export default function Stores() {
     );
   };
 
-  if (loading) return <div className="empty-state"><h3>Loading stores...</h3></div>;
+  if (loading) return (
+    <div className="sm-wrapper">
+      {/* Header skeleton */}
+      <div className="sm-header">
+        <div>
+          <div className="sk-box" style={{ width: 160, height: 26, marginBottom: 8 }} />
+          <div className="sk-box" style={{ width: 220, height: 14 }} />
+        </div>
+        <div className="sk-box" style={{ width: 140, height: 40, borderRadius: 10 }} />
+      </div>
+      {/* Summary cards skeleton */}
+      <div className="sm-summary-row">
+        {[...Array(4)].map((_, i) => (
+          <div className="sm-summary-card" key={i}>
+            <div className="sk-box" style={{ width: 36, height: 36, borderRadius: 10, marginBottom: 12 }} />
+            <div className="sk-box" style={{ width: 40, height: 24, marginBottom: 6 }} />
+            <div className="sk-box" style={{ width: 80, height: 12 }} />
+          </div>
+        ))}
+      </div>
+      {/* Table skeleton */}
+      <div className="sm-table-card">
+        <div style={{ padding: '18px 20px', borderBottom: '1px solid #f3f4f6' }}>
+          <div className="sk-box" style={{ width: 200, height: 14 }} />
+        </div>
+        {[...Array(5)].map((_, i) => (
+          <div key={i} style={{ display: 'flex', gap: 20, padding: '18px 20px', borderBottom: '1px solid #f9fafb', alignItems: 'center' }}>
+            <div className="sk-box" style={{ width: 40, height: 40, borderRadius: 10, flexShrink: 0 }} />
+            <div style={{ flex: 1 }}>
+              <div className="sk-box" style={{ width: 160, height: 14, marginBottom: 6 }} />
+              <div className="sk-box" style={{ width: 220, height: 12 }} />
+            </div>
+            <div className="sk-box" style={{ width: 70, height: 14 }} />
+            <div className="sk-box" style={{ width: 70, height: 14 }} />
+            <div className="sk-box" style={{ width: 70, height: 14 }} />
+            <div className="sk-box" style={{ width: 80, height: 28, borderRadius: 8 }} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
   // Summary calculations
   const totalStores = stores.length;

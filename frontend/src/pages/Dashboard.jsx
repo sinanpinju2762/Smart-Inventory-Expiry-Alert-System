@@ -92,7 +92,82 @@ export default function Dashboard() {
     }
   };
 
-  if (loading) return <div className="empty-state"><h3>Loading dashboard...</h3></div>;
+  if (loading) return (
+    <div className="v2-root">
+      {/* Topbar skeleton */}
+      <div className="sk-topbar">
+        <div>
+          <div className="sk-box" style={{ width: 220, height: 28, marginBottom: 8 }} />
+          <div className="sk-box" style={{ width: 160, height: 16 }} />
+        </div>
+        <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+          <div className="sk-box" style={{ width: 180, height: 38, borderRadius: 20 }} />
+          <div className="sk-box" style={{ width: 38, height: 38, borderRadius: '50%' }} />
+          <div className="sk-box" style={{ width: 38, height: 38, borderRadius: '50%' }} />
+          <div className="sk-box" style={{ width: 160, height: 44, borderRadius: 24 }} />
+        </div>
+      </div>
+      {/* 4 metric cards skeleton */}
+      <div className="v2-cards-row">
+        {[...Array(4)].map((_, i) => (
+          <div className="v2-metric-card" key={i}>
+            <div style={{ display: 'flex', gap: 12, marginBottom: 20 }}>
+              <div className="sk-box" style={{ width: 44, height: 44, borderRadius: 12, flexShrink: 0 }} />
+              <div style={{ flex: 1 }}>
+                <div className="sk-box" style={{ width: '70%', height: 14, marginBottom: 6 }} />
+                <div className="sk-box" style={{ width: '50%', height: 12 }} />
+              </div>
+            </div>
+            <div className="sk-box" style={{ width: 60, height: 32 }} />
+          </div>
+        ))}
+      </div>
+      {/* Middle row skeleton */}
+      <div className="v2-middle-row">
+        <div className="v2-chart-card">
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
+            <div>
+              <div className="sk-box" style={{ width: 140, height: 16, marginBottom: 8 }} />
+              <div className="sk-box" style={{ width: 100, height: 12 }} />
+            </div>
+            <div className="sk-box" style={{ width: 90, height: 28, borderRadius: 20 }} />
+          </div>
+          <div className="sk-box" style={{ width: '100%', height: 160, borderRadius: 12 }} />
+        </div>
+        <div className="v2-right-stats">
+          {[...Array(4)].map((_, i) => (
+            <div className="v2-right-stat" key={i}>
+              <div className="sk-box" style={{ width: 38, height: 38, borderRadius: 10, flexShrink: 0 }} />
+              <div style={{ flex: 1 }}>
+                <div className="sk-box" style={{ width: '60%', height: 12, marginBottom: 6 }} />
+                <div className="sk-box" style={{ width: '40%', height: 16 }} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      {/* Table skeleton */}
+      <div className="v2-bottom-row">
+        <div className="v2-table-card">
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
+            <div>
+              <div className="sk-box" style={{ width: 140, height: 16, marginBottom: 8 }} />
+              <div className="sk-box" style={{ width: 200, height: 12 }} />
+            </div>
+          </div>
+          {[...Array(6)].map((_, i) => (
+            <div key={i} style={{ display: 'flex', gap: 16, padding: '14px 0', borderBottom: '1px solid #f3f4f6', alignItems: 'center' }}>
+              <div className="sk-box" style={{ width: 160, height: 14 }} />
+              <div className="sk-box" style={{ width: 80, height: 14 }} />
+              <div className="sk-box" style={{ width: 90, height: 14 }} />
+              <div className="sk-box" style={{ width: 60, height: 14 }} />
+              <div className="sk-box" style={{ width: 70, height: 22, borderRadius: 8 }} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 
   const totalProducts = stats?.totalProducts || 0;
   const safeProducts = stats?.safeProducts || 0;

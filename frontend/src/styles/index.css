@@ -1248,6 +1248,36 @@ tr:hover {
   }
 }
 
+/* ══════════════════════════════════════════════════════
+   SKELETON LOADING SCREENS
+   ══════════════════════════════════════════════════════ */
+
+@keyframes sk-shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+.sk-box {
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e8e8e8 37%,
+    #f0f0f0 63%
+  );
+  background-size: 600px 100%;
+  animation: sk-shimmer 1.4s ease-in-out infinite;
+}
+
+.sk-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
 /* 4 Top Metric Cards */
 .v2-cards-row {
   display: grid;
