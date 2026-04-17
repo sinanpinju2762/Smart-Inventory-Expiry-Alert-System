@@ -1,19 +1,20 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const cron = require('node-cron');
 const connectDB = require('./config/db');
-const { checkExpiringProducts } = require('./services/expiryChecker');
 
 dotenv.config();
-
-const app = express();
 
 // Connect to Database
 connectDB();
 
+const app = express();
+
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL || '*',
+  credentials: true
+}));
 app.use(express.json());
 
 // Routes
@@ -28,13 +29,23 @@ app.get('/', (req, res) => {
   res.json({ message: 'Smart Inventory Expiry Alert System API is running' });
 });
 
-// Cron Job — Check expiring products every day at 8:00 AM
-cron.schedule('0 8 * * *', async () => {
-  console.log('Running daily expiry check...');
-  await checkExpiringProducts();
-});
+// Cron Job — only runs in local dev (node-cron doesn't work in serverless)
+if (process.env.NODE_ENV !== 'production') {
+  const cron = require('node-cron');
+  const { checkExpiringProducts } = require('./services/expiryChecker');
+  cron.schedule('0 8 * * *', async () => {
+    console.log('Running daily expiry check...');
+    await checkExpiringProducts();
+  });
+}
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Local dev: start server
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+// Vercel: export app as serverless function
+module.exports = app;

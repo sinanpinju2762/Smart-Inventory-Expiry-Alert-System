@@ -1269,6 +1269,12 @@ tr:hover {
   box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
 
+.v2-metric-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
 .v2-metric-top {
   display: flex;
   align-items: center;

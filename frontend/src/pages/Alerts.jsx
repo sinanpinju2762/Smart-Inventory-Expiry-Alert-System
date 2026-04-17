@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { FiAlertTriangle, FiAlertCircle, FiClock, FiSearch, FiChevronDown, FiPackage, FiShield, FiTrendingDown, FiFilter, FiDollarSign } from 'react-icons/fi';
 import API from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 
 export default function Alerts() {
   const { user } = useAuth();
+  const [searchParams] = useSearchParams();
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [alertDays, setAlertDays] = useState(7);
-  const [activeTab, setActiveTab] = useState('all');
+  const [activeTab, setActiveTab] = useState(searchParams.get('tab') || 'all');
   const [search, setSearch] = useState('');
 
   useEffect(() => {

@@ -146,25 +146,29 @@ export default function Dashboard() {
       icon: <FiPackage size={22} />,
       iconBg: '#e6f4f1', iconColor: '#00897b',
       label: 'Total Products', sub: 'All stock items',
-      value: totalProducts, trend: null
+      value: totalProducts, trend: null,
+      link: '/inventory'
     },
     {
       icon: <FiCheckCircle size={22} />,
       iconBg: '#dcfce7', iconColor: '#16a34a',
       label: 'Safe Products', sub: 'No expiry concern',
-      value: safeProducts, trend: { up: true, val: safePercent + '%' }
+      value: safeProducts, trend: { up: true, val: safePercent + '%' },
+      link: '/inventory?status=safe'
     },
     {
       icon: <FiAlertTriangle size={22} />,
       iconBg: '#fef3c7', iconColor: '#d97706',
       label: 'Expiring Soon', sub: 'Within 7 days',
-      value: expiringSoon, trend: expiringSoon > 0 ? { up: false, val: expiringSoon } : null
+      value: expiringSoon, trend: expiringSoon > 0 ? { up: false, val: expiringSoon } : null,
+      link: '/alerts?tab=soon'
     },
     {
       icon: <FiXCircle size={22} />,
       iconBg: '#fee2e2', iconColor: '#ef4444',
       label: 'Expired', sub: 'Needs attention',
-      value: expired, trend: expired > 0 ? { up: false, val: expired } : null
+      value: expired, trend: expired > 0 ? { up: false, val: expired } : null,
+      link: '/alerts?tab=expired'
     }
   ];
 
@@ -349,7 +353,7 @@ export default function Dashboard() {
       {/* ── 4 Top Metric Cards ── */}
       <div className="v2-cards-row">
         {topCards.map((card, i) => (
-          <div className="v2-metric-card" key={i}>
+          <Link to={card.link} className="v2-metric-card v2-metric-link" key={i}>
             <div className="v2-metric-top">
               <div className="v2-metric-icon" style={{ background: card.iconBg, color: card.iconColor }}>
                 {card.icon}
@@ -368,7 +372,7 @@ export default function Dashboard() {
                 </div>
               )}
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 

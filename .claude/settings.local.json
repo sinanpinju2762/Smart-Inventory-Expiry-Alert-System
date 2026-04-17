@@ -2,7 +2,20 @@
   "permissions": {
     "allow": [
       "Bash(npx vite:*)",
-      "Bash(node seed.js)"
+      "Bash(node seed.js)",
+      "Bash(node create_resumes.js)",
+      "Bash(npm install:*)",
+      "Bash(python \"C:\\\\Users\\\\ashiq\\\\AppData\\\\Roaming\\\\Claude\\\\local-agent-mode-sessions\\\\skills-plugin\\\\f181bafc-0b07-4c98-bc30-8461d5e52cc0\\\\f4a3f890-b6f4-475b-8604-6323284d40c3\\\\skills\\\\docx\\\\scripts\\\\office\\\\validate.py\" \"C:\\\\Users\\\\ashiq\\\\Downloads\\\\Sinan_Resume_International.docx\")",
+      "Bash(pip install:*)",
+      "Bash(start \"\" \"C:\\\\Users\\\\ashiq\\\\Downloads\\\\Sinan_Resume_International.docx\")",
+      "Bash(start \"\" \"C:\\\\Users\\\\ashiq\\\\Downloads\\\\Sinan_Resume_Domestic.docx\")",
+      "Bash(node update_resumes.js)",
+      "Bash(ls -d \"D:/PINJU\"*)",
+      "Bash(ls -d \"D:/PINJU Projects\"*)",
+      "Read(//d/PINJU/**)",
+      "Read(//d//**)",
+      "Bash(cat \"D:/PINJU/Projects/Smart Inventory Expiry Alert System/backend/services/\"*.js)",
+      "Bash(node build_resumes.js)"
     ]
   }
 }

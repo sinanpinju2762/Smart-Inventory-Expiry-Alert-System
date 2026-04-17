@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { FiPlus, FiEdit2, FiTrash2, FiSearch } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import API from '../api/axios';
@@ -9,12 +9,13 @@ const categories = ['All', 'Dairy', 'Bakery', 'Beverages', 'Snacks', 'Frozen', '
 
 export default function Inventory() {
   const { user } = useAuth();
+  const [searchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
   const [stores, setStores] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
-  const [statusFilter, setStatusFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState(searchParams.get('status') || '');
   const [storeFilter, setStoreFilter] = useState('');
   const [editProduct, setEditProduct] = useState(null);
   const [editForm, setEditForm] = useState({});
