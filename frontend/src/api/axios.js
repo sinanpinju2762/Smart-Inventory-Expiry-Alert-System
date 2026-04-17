@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+// Uses Render backend URL in production, local in dev
+const BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
 const API = axios.create({
-  baseURL: '/api'
+  baseURL: BASE_URL
 });
 
 // Add auth token to every request
